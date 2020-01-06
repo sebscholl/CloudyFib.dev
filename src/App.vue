@@ -1,32 +1,38 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <component :is="layout" />
 </template>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapGetters } from "vuex";
 
-#nav {
-  padding: 30px;
-}
+import GameLayout from "@/layouts/Game.vue";
+import PlayerLayout from "@/layouts/Player.vue";
+import PublicLayout from "@/layouts/Public.vue";
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+export default {
+  components: {
+    PlayerLayout,
+    PublicLayout,
+    GameLayout
+  },
+  data: () => ({
+    layout: PlayerLayout
+  }),
+  computed: {
+    ...mapGetters(["authenticated"])
+  },
+  methods: {
+    showLayout(layout = false) {
+      this.layout = layout || PlayerLayout;
+    }
+  },
+  watch: {
+    $route(to) {
+      this.showLayout(to.meta.layout);
+    }
+  },
+  created() {
+    this.showLayout(this.$route.meta.layout);
+  }
+};
+</script>

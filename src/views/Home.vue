@@ -1,18 +1,59 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>Your Games</h1>
+
+    <v-list three-line>
+      <template v-if="$apollo.loading">
+        <v-skeleton-loader
+          class="mx-auto"
+          type="list-item-avatar-three-lines"
+        />
+        <v-skeleton-loader
+          class="mx-auto"
+          type="list-item-avatar-three-lines"
+        />
+        <v-skeleton-loader
+          class="mx-auto"
+          type="list-item-avatar-three-lines"
+        />
+      </template>
+
+      <template v-else>
+        <v-list-item
+          :key="game.id"
+          @click="goToGame(game.code)"
+          v-for="game in gameCodesList.items"
+        >
+          <v-list-item-avatar>
+            <v-img :src="game.event.banner.downloadUrl"></v-img>
+          </v-list-item-avatar>
+
+          <v-list-item-content>
+            <v-list-item-title v-html="game.event.name" />
+            <v-list-item-subtitle v-html="game.event.description" />
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+    </v-list>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import { PlayerGameCodes } from "@/utils/graphql";
 export default {
   name: "home",
-  components: {
-    HelloWorld
+  apollo: {
+    gameCodesList: {
+      query: PlayerGameCodes
+    }
+  },
+  methods: {
+    goToGame(code) {
+      this.$router.push({
+        name: "game",
+        params: { code }
+      })
+    }
   }
 };
 </script>
