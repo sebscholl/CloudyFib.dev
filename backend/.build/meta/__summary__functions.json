@@ -1,0 +1,17 @@
+{
+  "functions": [
+    {
+      "name": "addNewFib",
+      "handler": "addNewFib.handler"
+    }
+  ],
+  "resolvers": [
+    {
+      "name": "addNewFib",
+      "functionName": "addNewFib",
+      "gqlType": "Mutation"
+    }
+  ],
+  "triggers": [],
+  "webhooks": []
+}

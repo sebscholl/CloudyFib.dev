@@ -1,0 +1,6 @@
+functions:
+  addNewFib:
+    type: resolver
+    handler:
+      code: src/resolvers/addNewFib/handler.ts
+    schema: src/resolvers/addNewFib/schema.graphql

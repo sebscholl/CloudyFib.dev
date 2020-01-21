@@ -3,6 +3,10 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Callback from "../views/Callback.vue";
+/**
+ * Game Views
+ */
+import Fibbing from "../views/Fibbing.vue";
 import LeaderBoard from "../views/LeaderBoard.vue";
 /**
  * Import the state for determining current auth state.
@@ -35,7 +39,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
-    path: "/game/:code",
+    path: "/game",
     name: "game",
     component: LeaderBoard,
     meta: {
@@ -44,16 +48,16 @@ const routes = [
     }
   },
   {
-    path: "/game/:code/fib",
+    path: "/game/fib",
     name: "fib",
-    component: LeaderBoard,
+    component: Fibbing,
     meta: {
       requiresAuth: true,
       layout: "GameLayout"
     }
   },
   {
-    path: "/game/:code/play",
+    path: "/game/play",
     name: "play",
     component: LeaderBoard,
     meta: {

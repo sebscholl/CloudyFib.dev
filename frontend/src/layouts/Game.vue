@@ -10,6 +10,20 @@
       <v-toolbar-title>
         <router-link :to="{ name: 'home' }">CloudyFib</router-link>
       </v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-badge
+        bordered
+        offset-x="20"
+        offset-y="20"
+        color="success"
+        :content="playerTokens"
+      >
+        <v-btn disabled icon>
+          <v-icon>mdi-coin-outline</v-icon>
+        </v-btn>
+      </v-badge>
     </v-app-bar>
 
     <v-content>
@@ -27,6 +41,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import LeftNavigation from "@/components/LeftNavigation";
 export default {
   name: "App",
@@ -45,6 +60,15 @@ export default {
     footer: {
       inset: false
     }
-  })
+  }),
+  computed: {
+    ...mapGetters(["playerTokens"])
+  },
+  methods: {
+    ...mapActions(["fetchPlayerTokens"])
+  },
+  created() {
+    this.fetchPlayerTokens();
+  }
 };
 </script>

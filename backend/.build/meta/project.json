@@ -1,0 +1,10 @@
+{
+  "name": "backend",
+  "functions": [
+    {
+      "name": "addNewFib",
+      "handler": "addNewFib.handler",
+      "pathToFunction": "src/resolvers/addNewFib/handler.ts"
+    }
+  ]
+}
