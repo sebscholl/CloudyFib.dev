@@ -3,12 +3,21 @@
     {
       "name": "addNewFib",
       "handler": "addNewFib.handler"
+    },
+    {
+      "name": "submitAttempt",
+      "handler": "submitAttempt.handler"
     }
   ],
   "resolvers": [
     {
       "name": "addNewFib",
       "functionName": "addNewFib",
+      "gqlType": "Mutation"
+    },
+    {
+      "name": "submitAttempt",
+      "functionName": "submitAttempt",
       "gqlType": "Mutation"
     }
   ],

@@ -6,6 +6,7 @@ import Callback from "../views/Callback.vue";
 /**
  * Game Views
  */
+import Play from "../views/Play.vue";
 import Fibbing from "../views/Fibbing.vue";
 import LeaderBoard from "../views/LeaderBoard.vue";
 /**
@@ -59,7 +60,7 @@ const routes = [
   {
     path: "/game/play",
     name: "play",
-    component: LeaderBoard,
+    component: Play,
     meta: {
       requiresAuth: true,
       layout: "GameLayout"

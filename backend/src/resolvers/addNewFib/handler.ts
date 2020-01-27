@@ -20,9 +20,32 @@
  */
 import gql from "graphql-tag";
 
-const CREATE_ANSWER_MUTATION = gql`
-  mutation($authorId: ID!, $questionId: ID!, $text: String!) {
-    answerCreate(
+const VALIDATE_ANSWER_AND_USER_QUERY = gql`
+  query($questionId: ID!, $text: String!) {
+    # Current user tokens
+    user: user {
+      id
+      tokens
+    }
+    # Validate the users fib
+    validate: answersList(
+      filter: {
+        question: { id: { equals: $questionId } }
+        text: { contains: $text }
+      }
+    ) {
+      count
+    }
+  }
+`;
+
+const CREATE_ANSWER_AND_UPDATE_USER_TOKENS_MUTATION = gql`
+  mutation($authorId: ID!, $tokens: Int!, $questionId: ID!, $text: String!) {
+    user: userUpdate(data: { id: $authorId, tokens: $tokens }) {
+      tokens
+    }
+
+    answer: answerCreate(
       data: {
         truth: false
         text: $text
@@ -35,48 +58,42 @@ const CREATE_ANSWER_MUTATION = gql`
   }
 `;
 
-const CURRENT_USER_QUERY = gql`
-  query {
-    user {
-      id
-      tokens
-    }
-  }
-`;
-
-const UPDATE_USER_TOKENS_MUTATION = gql`
-  mutation($id: ID!, $tokens: Int!) {
-    userUpdate(data: { id: $id, tokens: $tokens }) {
-      tokens
-    }
-  }
-`;
-
 export default async (event: any, ctx: any): Promise<any> => {
   const { questionId, text } = event.data;
-  /* Get current user info */
+
+  /* Get current user info and see if the answer exists */
   const {
-    user: { id, tokens }
-  } = await ctx.api.gqlRequest(CURRENT_USER_QUERY);
-  /* Create the new answer/fib */
+    user: { id, tokens },
+    validate: { count }
+  } = await ctx.api.gqlRequest(VALIDATE_ANSWER_AND_USER_QUERY, {
+    questionId,
+    text
+  });
+
+  /* If the answer already exists, return an error */
+  if (count > 0) {
+    return {
+      errors: [
+        {
+          message: "That Fib already exists! Make up another one...",
+          code: "RecordValidationError"
+        }
+      ]
+    };
+  }
+
+  /* Create the new answer/fib and updates the users token balance */
   await ctx.api.gqlRequest(
-    CREATE_ANSWER_MUTATION,
+    CREATE_ANSWER_AND_UPDATE_USER_TOKENS_MUTATION,
     {
+      tokens: tokens + 1,
       authorId: id,
       questionId,
       text
     },
     { checkPermissions: false }
   );
-  /* Updates the users token balance */
-  await ctx.api.gqlRequest(
-    UPDATE_USER_TOKENS_MUTATION,
-    {
-      id,
-      tokens: tokens + 1
-    },
-    { checkPermissions: false }
-  );
+
   /* Return result */
   return {
     data: {

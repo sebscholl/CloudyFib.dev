@@ -1,5 +1,5 @@
 <template>
-  <div class="leaderboard">
+  <v-col class="leaderboard">
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -13,12 +13,12 @@
           <tr v-for="(item, i) in leaderboard" :key="item.id">
             <td>#{{ i + 1 }}</td>
             <td>{{ item.PlayerName }}</td>
-            <td>{{ item.PlayerScore }}</td>
+            <td>{{ item.PlayerScore || 0 }}</td>
           </tr>
         </tbody>
       </template>
     </v-simple-table>
-  </div>
+  </v-col>
 </template>
 
 <script>

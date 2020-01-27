@@ -8,6 +8,7 @@ import graphqlClient from "@/utils/api";
  * idTokens value returned by the auth provider.
  */
 const state = {
+  userData: JSON.parse(localStorage.getItem("user_data")) || {},
   authenticated: !!localStorage.getItem("id_token"),
   idToken: localStorage.getItem("id_token")
 };
@@ -26,6 +27,12 @@ const getters = {
    */
   idToken(state) {
     return state.idToken;
+  },
+  /**
+   * Current user info.
+   */
+  userData(state) {
+    return state.userData;
   }
 };
 /**
@@ -46,9 +53,19 @@ const mutations = {
    */
   logout(state) {
     state.authenticated = false;
+    state.userData = false;
     state.idToken = false;
 
     localStorage.removeItem("id_token");
+    localStorage.removeItem("user_data");
+  },
+  /**
+   * Add user data to state
+   */
+  setUserData(state, userData) {
+    state.userData = userData;
+
+    localStorage.setItem("user_data", JSON.stringify(state.userData));
   }
 };
 /**
@@ -90,24 +107,34 @@ const actions = {
      * Check if user exists in 8base.
      */
     try {
-      await graphqlClient.query({
+      const {
+        data: { user }
+      } = await graphqlClient.query({
         query: gql.CURRENT_USER_QUERY,
         context
       });
+      commit("setUserData", user);
     } catch {
       /**
        * If user doesn't exist, an error will be
        * thrown, which then the new user can be
        * created using the authResult values.
        */
-      await graphqlClient.mutate({
+      const {
+        data: { userSignUpWithToken }
+      } = await graphqlClient.mutate({
         mutation: gql.USER_SIGN_UP_MUTATION,
         variables: {
-          user: { email: authResult.email },
+          user: {
+            email: authResult.email,
+            nickname: authResult.idTokenPayload.nickname,
+            pictureUrl: authResult.idTokenPayload.picture
+          },
           authProfileId: process.env.VUE_APP_AUTH_PROFILE_ID
         },
         context
       });
+      commit("setUserData", userSignUpWithToken);
     }
     /* commit the auth data to state */
     commit("authenticated", authResult);

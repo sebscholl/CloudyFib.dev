@@ -8,6 +8,8 @@ export const CURRENT_USER_QUERY = gql`
       id
       email
       tokens
+      nickname
+      pictureUrl
     }
   }
 `;
@@ -19,6 +21,30 @@ export const USER_SIGN_UP_MUTATION = gql`
     userSignUpWithToken(user: $user, authProfileId: $authProfileId) {
       id
       email
+      tokens
+      nickname
+      pictureUrl
+    }
+  }
+`;
+/**
+ * Player scores
+ */
+export const PlayerGameScores = gql`
+  query {
+    attemptsList(
+      groupBy: {
+        query: {
+          points: { as: "PlayerPoints", fn: { aggregate: SUM } }
+          player: { tokens: { as: "PlayerTokens" } }
+        }
+      }
+      filter: { player: { is_self: true } }
+    ) {
+      groups {
+        PlayerPoints: Int
+        PlayerTokens: Int
+      }
     }
   }
 `;
@@ -69,9 +95,9 @@ export const CurrentGameLeaderboard = gql`
         query: {
           attempts: { points: { as: "PlayerScore", fn: { aggregate: SUM } } }
           id: { as: "PlayerId" }
-          firstName: { as: "PlayerName" }
+          email: { as: "PlayerName" }
         }
-        sort: { alias: "PlayerScore", direction: ASC }
+        sort: { alias: "PlayerScore", direction: DESC }
       }
       filter: { gameCodes: { some: { event: { id: { equals: $eventId } } } } }
       first: 10
@@ -114,6 +140,51 @@ export const AddNewFibMutation = gql`
   mutation($text: String!, $questionId: ID!) {
     addNewFib(text: $text, questionId: $questionId) {
       playerTokens
+    }
+  }
+`;
+/**
+ * Get answerable questions.
+ */
+export const PlayableQuestionForPlayer = gql`
+  query($eventId: ID!) {
+    questionsList(
+      first: 1
+      filter: {
+        categories: { some: { events: { some: { id: { equals: $eventId } } } } }
+        attempts: { none: { player: { is_self: true } } }
+      }
+    ) {
+      items {
+        id
+        text
+        picture {
+          fileId
+          downloadUrl
+        }
+        answers(sort: { truth: DESC }, first: 5) {
+          items {
+            id
+            text
+            author {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const SubmitAttempt = gql`
+  mutation($answerId: ID!, $questionId: ID!, $gameCode: String!) {
+    submitAttempt(
+      answerId: $answerId
+      questionId: $questionId
+      gameCode: $gameCode
+    ) {
+      truth
+      points
     }
   }
 `;

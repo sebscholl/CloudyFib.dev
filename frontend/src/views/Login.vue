@@ -1,12 +1,14 @@
+<style lang="scss" scoped>
+.center {
+  text-align: center;
+}
+</style>
+
 <template>
   <v-col cols="12" sm="8" md="4">
-    <v-card class="elevation-12">
-      <v-toolbar color="success" dark flat>
-        <v-toolbar-title>Welcome to CloudyFib!</v-toolbar-title>
-      </v-toolbar>
-
-      <v-card-text>
-        <h5>Sign in with GitHub to play.</h5>
+    <v-card class="elevation-12 center">
+      <v-card-text class="pa-5">
+        <h3 class="mb-4">Sign in with GitHub to play CloudyFib!</h3>
 
         <v-btn color="light" @click="login">
           Sign into GitHub <v-icon>mdi-github-face</v-icon>

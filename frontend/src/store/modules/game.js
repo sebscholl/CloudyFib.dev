@@ -4,7 +4,8 @@ import {
   CURRENT_USER_QUERY,
   CurrentGameDetails,
   CurrentGameLeaderboard,
-  FibbableQuestionForPlayer
+  FibbableQuestionForPlayer,
+  PlayableQuestionForPlayer
 } from "@/utils/graphql";
 /**
  * Game state maintains the current game being
@@ -58,9 +59,7 @@ const mutations = {
    * Switch games.
    */
   setCurrentGameDetails(state, eventGameData) {
-    let { event } = eventGameData;
-
-    state.currentGameDetails = event;
+    state.currentGameDetails = eventGameData;
 
     localStorage.setItem(
       "current_game_details",
@@ -116,7 +115,7 @@ const actions = {
    * Get the leaderboard of the current game
    */
   async currentGameLeaderboard({ state }) {
-    const eventId = state.currentGameDetails.id;
+    const eventId = state.currentGameDetails.event.id;
 
     const {
       data: {
@@ -133,7 +132,7 @@ const actions = {
    * Get the next fibbable question
    */
   async nextFibbableQuestion({ state }) {
-    const eventId = state.currentGameDetails.id;
+    const eventId = state.currentGameDetails.event.id;
 
     const {
       data: {
@@ -141,6 +140,24 @@ const actions = {
       }
     } = await graphqlClient.query({
       query: FibbableQuestionForPlayer,
+      variables: { eventId },
+      fetchPolicy: "no-cache"
+    });
+
+    return items[0];
+  },
+  /**
+   * Get the next playable question
+   */
+  async nextPlayableQuestion({ state }) {
+    const eventId = state.currentGameDetails.event.id;
+
+    const {
+      data: {
+        questionsList: { items }
+      }
+    } = await graphqlClient.query({
+      query: PlayableQuestionForPlayer,
       variables: { eventId },
       fetchPolicy: "no-cache"
     });

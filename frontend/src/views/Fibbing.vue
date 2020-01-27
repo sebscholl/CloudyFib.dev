@@ -1,19 +1,21 @@
 <template>
-  <div class="fibbing">
-    <v-card v-if="question" class="mx-auto" max-width="400">
+  <v-col class="fibbing">
+    <!-- State for when a question is loaded and ready to be fibbed -->
+    <v-card v-if="componentState === 'loaded'" class="mx-auto">
       <v-img
         v-if="question.picture"
         height="200px"
         class="white--text align-end"
         :src="question.picture.downloadUrl"
-      >
-      </v-img>
+      />
 
       <v-card-text class="text--primary">
         <h3 v-text="question.text"></h3>
       </v-card-text>
 
       <v-card-text class="text--primary">
+        <p class="red--text" v-if="error">{{ error }}</p>
+
         <v-textarea
           outlined
           label="Fib"
@@ -24,12 +26,33 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn @click="saveFib" :disabled="saving" color="orange">
+        <v-btn @click="saveFib" color="orange">
           Submit Fib
         </v-btn>
       </v-card-actions>
     </v-card>
-  </div>
+
+    <!-- State for when question is loading -->
+    <v-card v-if="componentState === 'loading'" class="mx-auto pa-8">
+      <v-card-text class="d-flex justify-center">
+        <v-progress-circular :size="75" color="amber" indeterminate />
+      </v-card-text>
+    </v-card>
+
+    <!-- State for when fib is saving -->
+    <v-card v-if="componentState === 'saving'" class="mx-auto pa-8">
+      <v-card-text class="d-flex justify-center">
+        <v-progress-circular :size="75" color="amber" indeterminate />
+      </v-card-text>
+    </v-card>
+
+    <!-- State for when there are no more questions to answer -->
+    <v-card v-if="componentState === 'empty'" class="mx-auto pa-8 center">
+      <h3 class="grey--text">There are no more questions for you to Fib on!</h3>
+
+      <router-link :to="{ name: 'play' }">Answer some questions</router-link>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -40,44 +63,63 @@ import { AddNewFibMutation } from "@/utils/graphql";
 export default {
   name: "Fibbing",
   data: () => ({
-    saving: false,
     fib: undefined,
-    question: undefined
+    error: undefined,
+    question: undefined,
+    currentState: 0,
+    componentStates: ["loading", "loaded", "saving", "empty"]
   }),
   computed: {
+    noMoreQuestions() {
+      return this.question === undefined && this.loading === false;
+    },
+    componentState() {
+      return this.componentStates[this.currentState];
+    },
     ...mapGetters(["currentGameDetails"])
   },
   methods: {
+    questionExists() {
+      this.currentState = 1;
+      this.error = "That fib already exists! Make up another...";
+
+      setTimeout(() => (this.error = undefined), 3000);
+    },
     async saveFib() {
-      this.saving = true;
+      this.currentState = 2;
       /* Construct the variables */
       const variables = {
         text: this.fib,
         questionId: this.question.id
       };
       /* Save the question */
-      const {
-        data: {
-          addNewFib: { playerTokens }
-        }
-      } = await graphqlClient.mutate({
-        mutation: AddNewFibMutation,
-        variables
-      });
-      /* Update the player tokens count */
-      this.$store.commit("setPlayerTokens", playerTokens);
-      /* Load a new fib */
-      setTimeout(this.loadQuestion, 2000);
+      try {
+        const {
+          data: {
+            addNewFib: { playerTokens }
+          }
+        } = await graphqlClient.mutate({
+          mutation: AddNewFibMutation,
+          variables
+        });
+        /* Update the player tokens count */
+        this.$store.commit("setPlayerTokens", playerTokens);
+        /* Load a new fib */
+        this.loadQuestion();
+      } catch (error) {
+        this.questionExists();
+      }
     },
     async loadQuestion() {
-      this.loading = true;
+      this.currentState = 0;
+
+      /* Reset fib and question */
       this.fib = undefined;
       this.question = undefined;
 
-      const question = await this.nextFibbableQuestion();
+      this.question = await this.nextFibbableQuestion();
 
-      this.question = question;
-      this.loading = false;
+      this.currentState = this.question === undefined ? 3 : 1;
     },
     ...mapActions(["nextFibbableQuestion"])
   },

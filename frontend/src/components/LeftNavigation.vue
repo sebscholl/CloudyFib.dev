@@ -9,6 +9,21 @@
     app
     overflow
   >
+    <template v-slot:prepend>
+      <v-list-item two-line>
+        <v-list-item-avatar>
+          <img :src="userData.pictureUrl" />
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>{{ userData.nickname }}</v-list-item-title>
+          <v-list-item-subtitle>CloudyFib Player</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </template>
+
+    <v-divider></v-divider>
+
     <v-list>
       <v-list-item v-for="item in menu" :to="item.to" :key="item.to" exact>
         <v-list-item-icon>
@@ -30,7 +45,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
     primaryDrawer: {
@@ -57,6 +72,9 @@ export default {
       }
     ]
   }),
+  computed: {
+    ...mapGetters(["userData"])
+  },
   methods: {
     ...mapActions(["logout"])
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Your Games</h1>
+    <h1 class="white--text">Your Games</h1>
 
     <v-list v-if="hasGames" three-line>
       <v-list-item

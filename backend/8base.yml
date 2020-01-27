@@ -4,3 +4,8 @@ functions:
     handler:
       code: src/resolvers/addNewFib/handler.ts
     schema: src/resolvers/addNewFib/schema.graphql
+  submitAttempt:
+    type: resolver
+    handler:
+      code: src/resolvers/submitAttempt/handler.ts
+    schema: src/resolvers/submitAttempt/schema.graphql

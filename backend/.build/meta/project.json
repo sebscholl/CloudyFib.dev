@@ -5,6 +5,11 @@
       "name": "addNewFib",
       "handler": "addNewFib.handler",
       "pathToFunction": "src/resolvers/addNewFib/handler.ts"
+    },
+    {
+      "name": "submitAttempt",
+      "handler": "submitAttempt.handler",
+      "pathToFunction": "src/resolvers/submitAttempt/handler.ts"
     }
   ]
 }
