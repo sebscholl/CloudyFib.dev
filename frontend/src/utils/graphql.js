@@ -152,7 +152,7 @@ export const PlayableQuestionForPlayer = gql`
       first: 1
       filter: {
         categories: { some: { events: { some: { id: { equals: $eventId } } } } }
-        attempts: { none: { player: { is_self: true } } }
+        attempts: { none: { createdBy: { is_self: true } } }
       }
     ) {
       items {
@@ -162,7 +162,11 @@ export const PlayableQuestionForPlayer = gql`
           fileId
           downloadUrl
         }
-        answers(sort: { truth: DESC }, first: 5) {
+        answers(
+          filter: { author: { is_self: false } }
+          sort: { truth: DESC }
+          first: 5
+        ) {
           items {
             id
             text

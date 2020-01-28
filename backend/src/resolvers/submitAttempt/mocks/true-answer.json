@@ -1,0 +1,10 @@
+{
+  "data": {
+    "questionId": "ck4rlo0s1008r07jz8nza13g1",
+    "answerId": "ck4rlzi1w00bg07jzedgmflpq",
+    "gameCode": "836t3-2973g-3937h39"
+  },
+  "headers": {
+    "x-header-1": "header value"
+  }
+}

@@ -9,6 +9,7 @@
 type SubmitAttemptResult {
   truth: Boolean!
   points: Int
+  id: ID
 }
 
 extend type Mutation {

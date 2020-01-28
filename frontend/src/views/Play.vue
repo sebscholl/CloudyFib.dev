@@ -1,8 +1,24 @@
 <style lang="scss">
 .play {
   .selected-border {
-    border: 3px solid yellow;
     border-radius: 5px;
+    border: 3px solid yellow;
+  }
+
+  .answer {
+    text-align: center;
+
+    h1 {
+      font-size: 75px;
+    }
+
+    &.fib {
+      color: red;
+    }
+
+    &.truth {
+      color: green;
+    }
   }
 }
 </style>
@@ -33,7 +49,7 @@
       <v-card-text class="text--primary">
         <v-list-item-group>
           <v-list-item
-            v-for="answer in question.answers.items"
+            v-for="answer in questionAnswers"
             :key="answer.id"
             @click="select(answer)"
             :class="{
@@ -52,6 +68,22 @@
           Submit Answer
         </v-btn>
       </v-card-actions>
+    </v-card>
+
+    <!-- State for when question is saving -->
+    <v-card v-if="componentState === 'answer'" class="mx-auto pa-8">
+      <v-card-text
+        :class="[
+          'answer',
+          { truth: answerReport.truth, fib: !answerReport.truth }
+        ]"
+      >
+        <h3>{{ answerReport.title }}</h3>
+        <h1 class="my-4">
+          {{ (answerReport.truth ? "+" : "-") + answerReport.points }}
+        </h1>
+        <h5>{{ answerReport.subtitle }}</h5>
+      </v-card-text>
     </v-card>
 
     <!-- State for when question is saving -->
@@ -82,16 +114,59 @@ export default {
     active: false,
     question: undefined,
     selected: undefined,
+    answerReport: {},
     currentState: 0,
-    componentStates: ["loading", "loaded", "saving", "empty"]
+    componentStates: ["loading", "loaded", "saving", "empty", "answer"]
   }),
   computed: {
+    questionAnswers() {
+      let array = this.question.answers.items;
+
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+
+      return array;
+    },
     componentState() {
       return this.componentStates[this.currentState];
     },
     ...mapGetters(["currentGameDetails"])
   },
   methods: {
+    /**
+     * Show's the correct answer was chosen.
+     */
+    answerCorrect(pts) {
+      this.answerReport = {
+        points: pts,
+        truth: true,
+        title: "Nice job!",
+        subtitle: `You earned ${pts} points`
+      };
+
+      this.currentState = 4;
+      /* Load a new fib */
+      setTimeout(this.loadQuestion, 4000);
+    },
+    /**
+     * Show's the incorrect answer was chosen.
+     */
+    answerIncorrect(pts) {
+      this.answerReport = {
+        points: pts,
+        truth: false,
+        title: "You got fibbed!",
+        subtitle: `The fibber earned ${pts} points`
+      };
+
+      this.currentState = 4;
+      /* Load a new fib */
+      setTimeout(this.loadQuestion, 4000);
+    },
     /**
      * Select an answer.
      */
@@ -115,15 +190,13 @@ export default {
           submitAttempt: { truth, points }
         }
       } = await graphqlClient.mutate({
+        fetchPolicy: "no-cache",
         mutation: SubmitAttempt,
         variables
       });
 
-      if (truth) {
-        console.log(points);
-      }
-      /* Load a new fib */
-      this.loadQuestion();
+      /* Show whether answer is correct or incorrect */
+      truth ? this.answerCorrect(points) : this.answerIncorrect(points);
     },
     async loadQuestion() {
       this.currentState = 0;

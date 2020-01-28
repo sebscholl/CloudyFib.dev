@@ -73,25 +73,20 @@ export default async (event: any, ctx: any): Promise<any> => {
   };
 
   if (truth) {
-    Object.assign(data, {
-      type: "trivia_points",
-      playerId: user.id
-    });
+    Object.assign(data, { type: "trivia_points", playerId: user.id });
   } else {
-    Object.assign(data, {
-      type: "fib_points",
-      playerId: author.id
-    });
+    Object.assign(data, { type: "fib_points", playerId: author.id });
   }
 
   const {
-    attemptCreate: { points }
+    attemptCreate: { id, points }
   } = await ctx.api.gqlRequest(ATTEMPT_CREATE_MUTATION, data, {
     checkPermissions: false
   });
 
   return {
     data: {
+      id,
       truth,
       points
     }
