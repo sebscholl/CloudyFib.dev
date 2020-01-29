@@ -1,6 +1,8 @@
 <template>
   <v-col class="leaderboard">
-    <v-simple-table>
+    <PlayerChart></PlayerChart>
+
+    <v-simple-table class="glass">
       <template v-slot:default>
         <thead>
           <tr>
@@ -10,7 +12,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, i) in leaderboard" :key="item.id">
+          <tr v-if="loading">
+            <td colspan="3" class="pa-3 center">
+              <v-progress-circular :size="75" color="amber" indeterminate />
+            </td>
+          </tr>
+
+          <tr v-else v-for="(item, i) in leaderboard" :key="item.id">
             <td>#{{ i + 1 }}</td>
             <td>{{ item.PlayerName }}</td>
             <td>{{ item.PlayerScore || 0 }}</td>
@@ -23,9 +31,15 @@
 
 <script>
 import { mapActions } from "vuex";
+import PlayerChart from "../components/PlayerChart.vue";
+
 export default {
   name: "Leaderboard",
+  components: {
+    PlayerChart
+  },
   data: () => ({
+    loading: true,
     leaderboard: []
   }),
   methods: {
@@ -34,6 +48,7 @@ export default {
   created() {
     this.currentGameLeaderboard().then(list => {
       this.leaderboard = list;
+      this.loading = false;
     });
   }
 };

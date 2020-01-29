@@ -2,6 +2,7 @@ import graphqlClient from "@/utils/api";
 import {
   PlayerGameCodes,
   CURRENT_USER_QUERY,
+  PlayerGameStats,
   CurrentGameDetails,
   CurrentGameLeaderboard,
   FibbableQuestionForPlayer,
@@ -163,6 +164,30 @@ const actions = {
     });
 
     return items[0];
+  },
+  /**
+   * Fetches the players stats.
+   */
+  async fetchPlayerStats({ state }) {
+    const eventId = state.currentGameDetails.event.id;
+
+    const {
+      data: {
+        answers,
+        attempts,
+        points: { groups }
+      }
+    } = await graphqlClient.query({
+      query: PlayerGameStats,
+      variables: { eventId },
+      fetchPolicy: "no-cache"
+    });
+
+    return {
+      answers,
+      attempts,
+      groups
+    };
   }
 };
 

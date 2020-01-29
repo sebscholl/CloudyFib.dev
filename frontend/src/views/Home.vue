@@ -2,7 +2,7 @@
   <div class="home">
     <h1 class="white--text">Your Games</h1>
 
-    <v-list v-if="hasGames" three-line>
+    <v-list v-if="hasGames" class="glass" three-line>
       <v-list-item
         :key="game.id"
         @click="goToGame(game.code)"

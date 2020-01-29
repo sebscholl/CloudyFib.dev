@@ -1,54 +1,20 @@
-<style lang="scss">
-.bg {
-  background: linear-gradient(270deg, #00946e, #2b5248, #0051b0, #c19200);
-  background-size: 800% 800%;
-
-  -webkit-animation: AnimationName 20s ease infinite;
-  -moz-animation: AnimationName 20s ease infinite;
-  animation: AnimationName 20s ease infinite;
-}
-@-webkit-keyframes AnimationName {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@-moz-keyframes AnimationName {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@keyframes AnimationName {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-</style>
-
 <template>
   <v-app id="sandbox">
-    <v-app-bar :clipped-left="primaryDrawer.clipped" app>
+    <v-app-bar :clipped-left="primaryDrawer.clipped" class="glass" app>
       <v-toolbar-title>Cloudy Fib</v-toolbar-title>
     </v-app-bar>
 
-    <v-content class="bg">
+    <v-content class="bohek-background">
+      <!-- Particles for background start -->
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <!-- Particles for background end -->
+
       <v-container fluid>
         <v-row align="center" justify="center">
           <router-view></router-view>

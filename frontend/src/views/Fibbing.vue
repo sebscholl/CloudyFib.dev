@@ -1,56 +1,60 @@
 <template>
   <v-col class="fibbing">
     <!-- State for when a question is loaded and ready to be fibbed -->
-    <v-card v-if="componentState === 'loaded'" class="mx-auto">
-      <v-img
-        v-if="question.picture"
-        height="200px"
-        class="white--text align-end"
-        :src="question.picture.downloadUrl"
-      />
+    <v-card class="mx-auto glass">
+      <template v-if="componentState === 'loaded'">
+        <v-img
+          v-if="question.picture"
+          height="200px"
+          class="white--text align-end"
+          :src="question.picture.downloadUrl"
+        />
 
-      <v-card-text class="text--primary">
-        <h3 v-text="question.text"></h3>
-      </v-card-text>
+        <v-card-text class="text--primary">
+          <h3 v-text="question.text"></h3>
+        </v-card-text>
 
-      <v-card-text class="text--primary">
-        <p class="red--text" v-if="error">{{ error }}</p>
+        <v-card-text class="text--primary">
+          <p class="red--text" v-if="error">{{ error }}</p>
 
-        <v-textarea
-          outlined
-          label="Fib"
-          v-model="fib"
-          name="input-7-4"
-          placeholder="Go on, lie your little heart out."
-        ></v-textarea>
-      </v-card-text>
+          <v-textarea
+            outlined
+            label="Fib"
+            v-model="fib"
+            name="input-7-4"
+            placeholder="Go on, lie your little heart out."
+          ></v-textarea>
+        </v-card-text>
 
-      <v-card-actions>
-        <v-btn @click="saveFib" color="orange">
-          Submit Fib
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+        <v-card-actions>
+          <v-btn @click="saveFib" color="orange">
+            Submit Fib
+          </v-btn>
+        </v-card-actions>
+      </template>
 
-    <!-- State for when question is loading -->
-    <v-card v-if="componentState === 'loading'" class="mx-auto pa-8">
-      <v-card-text class="d-flex justify-center">
-        <v-progress-circular :size="75" color="amber" indeterminate />
-      </v-card-text>
-    </v-card>
+      <!-- State for when question is loading -->
+      <template v-if="componentState === 'loading'">
+        <v-card-text class="d-flex justify-center">
+          <v-progress-circular :size="75" color="amber" indeterminate />
+        </v-card-text>
+      </template>
 
-    <!-- State for when fib is saving -->
-    <v-card v-if="componentState === 'saving'" class="mx-auto pa-8">
-      <v-card-text class="d-flex justify-center">
-        <v-progress-circular :size="75" color="amber" indeterminate />
-      </v-card-text>
-    </v-card>
+      <!-- State for when fib is saving -->
+      <template v-if="componentState === 'saving'">
+        <v-card-text class="d-flex justify-center">
+          <v-progress-circular :size="75" color="amber" indeterminate />
+        </v-card-text>
+      </template>
 
-    <!-- State for when there are no more questions to answer -->
-    <v-card v-if="componentState === 'empty'" class="mx-auto pa-8 center">
-      <h3 class="grey--text">There are no more questions for you to Fib on!</h3>
+      <!-- State for when there are no more questions to answer -->
+      <template v-if="componentState === 'empty'">
+        <h3 class="grey--text">
+          There are no more questions for you to Fib on!
+        </h3>
 
-      <router-link :to="{ name: 'play' }">Answer some questions</router-link>
+        <router-link :to="{ name: 'play' }">Answer some questions</router-link>
+      </template>
     </v-card>
   </v-col>
 </template>

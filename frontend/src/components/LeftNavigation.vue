@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+    class="glass"
     v-model="primaryDrawer.model"
     :clipped="primaryDrawer.clipped"
     :floating="primaryDrawer.floating"
@@ -17,7 +18,9 @@
 
         <v-list-item-content>
           <v-list-item-title>{{ userData.nickname }}</v-list-item-title>
-          <v-list-item-subtitle>CloudyFib Player</v-list-item-subtitle>
+          <v-list-item-subtitle>
+            CloudyFib Player
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -55,6 +58,11 @@ export default {
   },
   data: () => ({
     menu: [
+      {
+        to: "/",
+        icon: "mdi-home",
+        text: "Back to Games"
+      },
       {
         to: "/game",
         icon: "mdi-clipboard-list-outline",

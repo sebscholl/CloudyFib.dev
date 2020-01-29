@@ -25,72 +25,74 @@
 
 <template>
   <v-col class="play">
-    <!-- State for when question is loading -->
-    <v-card v-if="componentState === 'loading'" class="mx-auto pa-8">
-      <v-card-text class="d-flex justify-center">
-        <v-progress-circular :size="75" color="amber" indeterminate />
-      </v-card-text>
-    </v-card>
+    <v-card class="mx-auto glass">
+      <!-- State for when question is loading -->
+      <template v-if="componentState === 'loading'">
+        <v-card-text class="d-flex justify-center">
+          <v-progress-circular :size="75" color="amber" indeterminate />
+        </v-card-text>
+      </template>
 
-    <!-- State for when question is loaded -->
-    <v-card v-if="componentState === 'loaded'" class="mx-auto">
-      <v-img
-        v-if="question.picture"
-        height="200px"
-        class="white--text align-end"
-        :src="question.picture.downloadUrl"
-      >
-      </v-img>
+      <!-- State for when question is loaded -->
+      <template v-if="componentState === 'loaded'">
+        <v-img
+          v-if="question.picture"
+          height="200px"
+          class="white--text align-end"
+          :src="question.picture.downloadUrl"
+        >
+        </v-img>
 
-      <v-card-text class="text--primary">
-        <h3 v-text="question.text"></h3>
-      </v-card-text>
+        <v-card-text class="text--primary">
+          <h3 v-text="question.text"></h3>
+        </v-card-text>
 
-      <v-card-text class="text--primary">
-        <v-list-item-group>
-          <v-list-item
-            v-for="answer in questionAnswers"
-            :key="answer.id"
-            @click="select(answer)"
-            :class="{
-              'selected-border': selected && selected.id === answer.id
-            }"
-          >
-            <v-list-item-content>
-              <code>{{ answer.text }}</code>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-card-text>
+        <v-card-text class="text--primary">
+          <v-list-item-group>
+            <v-list-item
+              v-for="answer in questionAnswers"
+              :key="answer.id"
+              @click="select(answer)"
+              :class="{
+                'selected-border': selected && selected.id === answer.id
+              }"
+            >
+              <v-list-item-content>
+                <code>{{ answer.text }}</code>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-card-text>
 
-      <v-card-actions>
-        <v-btn @click="saveAttempt" color="orange">
-          Submit Answer
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+        <v-card-actions>
+          <v-btn @click="saveAttempt" color="orange">
+            Submit Answer
+          </v-btn>
+        </v-card-actions>
+      </template>
 
-    <!-- State for when question is saving -->
-    <v-card v-if="componentState === 'answer'" class="mx-auto pa-8">
-      <v-card-text
-        :class="[
-          'answer',
-          { truth: answerReport.truth, fib: !answerReport.truth }
-        ]"
-      >
-        <h3>{{ answerReport.title }}</h3>
-        <h1 class="my-4">
-          {{ (answerReport.truth ? "+" : "-") + answerReport.points }}
-        </h1>
-        <h5>{{ answerReport.subtitle }}</h5>
-      </v-card-text>
-    </v-card>
+      <!-- State for when question is saving -->
+      <template v-if="componentState === 'answer'">
+        <v-card-text
+          :class="[
+            'answer',
+            { truth: answerReport.truth, fib: !answerReport.truth }
+          ]"
+        >
+          <h3>{{ answerReport.title }}</h3>
+          <h1 class="my-4">
+            {{ (answerReport.truth ? "+" : "-") + answerReport.points }}
+          </h1>
+          <h5>{{ answerReport.subtitle }}</h5>
+        </v-card-text>
+      </template>
 
-    <!-- State for when question is saving -->
-    <v-card v-if="componentState === 'saving'" class="mx-auto pa-8">
-      <v-card-text class="d-flex justify-center">
-        <v-progress-circular :size="75" color="amber" indeterminate />
-      </v-card-text>
+      <!-- State for when question is saving -->
+      <template v-if="componentState === 'saving'">
+        <v-card-text class="d-flex justify-center">
+          <v-progress-circular :size="75" color="amber" indeterminate />
+        </v-card-text>
+      </template>
     </v-card>
 
     <!-- Warning modal -->

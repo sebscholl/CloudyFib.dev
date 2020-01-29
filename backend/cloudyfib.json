@@ -1,0 +1,1321 @@
+{
+  "tables": [
+    {
+      "id": "5e09223c2dbe750007b1b9c9",
+      "name": "Questions",
+      "displayName": "Questions",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e09223c2dbe750007b1b9cb",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e09223c2dbe750007b1b9cc",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e09223c2dbe750007b1b9cf",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e09223c2dbe750007b1b9d5",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0926602dbe750007b220bb",
+          "name": "answers",
+          "displayName": "Answers",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "question",
+            "refFieldDisplayName": "Question",
+            "relationTableName": "AnswersQuestion",
+            "relationFieldName": "questionAId",
+            "refTable": {
+              "id": "5e092245c000ae000819b1d9",
+              "name": "Answers"
+            },
+            "refFieldIsList": false,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e0927777f33e00008d9d3e1",
+          "name": "attempts",
+          "displayName": "Attempts",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "question",
+            "refFieldDisplayName": "Question",
+            "relationTableName": "AttemptsQuestion",
+            "relationFieldName": "questionAId",
+            "refTable": {
+              "id": "5e0927372dbe750007b24a2b",
+              "name": "Attempts"
+            },
+            "refFieldIsList": false,
+            "refFieldIsRequired": true
+          }
+        },
+        {
+          "id": "5e092696d39b3200082b9e2c",
+          "name": "categories",
+          "displayName": "Categories",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "questions",
+            "refFieldDisplayName": "Questions",
+            "relationTableName": "CategoriesQuestions",
+            "relationFieldName": "questionAId",
+            "refTable": {
+              "id": "5e092260ae70420008028da1",
+              "name": "Categories"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e0926852dbe750007b2299c",
+          "name": "text",
+          "displayName": "text",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 191
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e0ab6e5b9b61600083bcc20",
+          "name": "picture",
+          "displayName": "picture",
+          "description": null,
+          "fieldType": "FILE",
+          "fieldTypeAttributes": {
+            "format": "IMAGE",
+            "maxSize": null,
+            "typeRestrictions": null
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        }
+      ]
+    },
+    {
+      "id": "5e092245c000ae000819b1d9",
+      "name": "Answers",
+      "displayName": "Answers",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e092245c000ae000819b1db",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092245c000ae000819b1dc",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092245c000ae000819b1df",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092245c000ae000819b1e5",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092787d39b3200082befdc",
+          "name": "attempts",
+          "displayName": "Attempts",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "answer",
+            "refFieldDisplayName": "Answer",
+            "relationTableName": "AnswerAttempts",
+            "relationFieldName": "answerBId",
+            "refTable": {
+              "id": "5e0927372dbe750007b24a2b",
+              "name": "Attempts"
+            },
+            "refFieldIsList": false,
+            "refFieldIsRequired": true
+          }
+        },
+        {
+          "id": "5e092890d39b3200082c16e5",
+          "name": "author",
+          "displayName": "Author",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "answers",
+            "refFieldDisplayName": "Answers",
+            "relationTableName": "AnswersUser",
+            "relationFieldName": "answerAId",
+            "refTable": {
+              "id": "5e0920a66149240008e363d5",
+              "name": "Users"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e0926602dbe750007b220be",
+          "name": "question",
+          "displayName": "Question",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "answers",
+            "refFieldDisplayName": "Answers",
+            "relationTableName": "AnswersQuestion",
+            "relationFieldName": "answerBId",
+            "refTable": {
+              "id": "5e09223c2dbe750007b1b9c9",
+              "name": "Questions"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e09272d2dbe750007b247d4",
+          "name": "text",
+          "displayName": "text",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 500
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e092711d39b3200082bcad0",
+          "name": "truth",
+          "displayName": "truth",
+          "description": null,
+          "fieldType": "SWITCH",
+          "fieldTypeAttributes": {
+            "format": "TRUE_FALSE",
+            "listOptions": null
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": "false",
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        }
+      ]
+    },
+    {
+      "id": "5e092260ae70420008028da1",
+      "name": "Categories",
+      "displayName": "Categories",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e092260ae70420008028da3",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092260ae70420008028da4",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092260ae70420008028da7",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092260ae70420008028dad",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092696d39b3200082b9e2f",
+          "name": "questions",
+          "displayName": "Questions",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "categories",
+            "refFieldDisplayName": "Categories",
+            "relationTableName": "CategoriesQuestions",
+            "relationFieldName": "categoryBId",
+            "refTable": {
+              "id": "5e09223c2dbe750007b1b9c9",
+              "name": "Questions"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e0926b1d39b3200082babc4",
+          "name": "name",
+          "displayName": "name",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e0e4139d79d0c0008991ace",
+          "name": "events",
+          "displayName": "Events",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "categories",
+            "refFieldDisplayName": "Categories",
+            "relationTableName": "CategoriesEvents",
+            "relationFieldName": "categoryBId",
+            "refTable": {
+              "id": "5e0e40de0481d40008980af1",
+              "name": "Event"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "5e092271ae70420008028fd9",
+      "name": "Awards",
+      "displayName": "Awards",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e092271ae70420008028fdb",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092271ae70420008028fdc",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092271ae70420008028fdf",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e092271ae70420008028fe5",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0928c37f33e00008d9e94d",
+          "name": "description",
+          "displayName": "description",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 500
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e0928d17f33e00008d9ee0c",
+          "name": "title",
+          "displayName": "title",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e09290ad39b3200082c2bc8",
+          "name": "player",
+          "displayName": "Player",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "awards",
+            "refFieldDisplayName": "Awards",
+            "relationTableName": "AwardsUser",
+            "relationFieldName": "awardAId",
+            "refTable": {
+              "id": "5e0920a66149240008e363d5",
+              "name": "Users"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "5e0927372dbe750007b24a2b",
+      "name": "Attempts",
+      "displayName": "Attempts",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e0927372dbe750007b24a2d",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0927372dbe750007b24a2e",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0927372dbe750007b24a31",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0927372dbe750007b24a37",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0927777f33e00008d9d3de",
+          "name": "question",
+          "displayName": "Question",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "attempts",
+            "refFieldDisplayName": "Attempts",
+            "relationTableName": "AttemptsQuestion",
+            "relationFieldName": "attemptBId",
+            "refTable": {
+              "id": "5e09223c2dbe750007b1b9c9",
+              "name": "Questions"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e092787d39b3200082befd9",
+          "name": "answer",
+          "displayName": "Answer",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "attempts",
+            "refFieldDisplayName": "Attempts",
+            "relationTableName": "AnswerAttempts",
+            "relationFieldName": "attemptAId",
+            "refTable": {
+              "id": "5e092245c000ae000819b1d9",
+              "name": "Answers"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e092856d39b3200082c06a0",
+          "name": "player",
+          "displayName": "Player",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "attempts",
+            "refFieldDisplayName": "Attempts",
+            "relationTableName": "AttemptsUser",
+            "relationFieldName": "attemptAId",
+            "refTable": {
+              "id": "5e0920a66149240008e363d5",
+              "name": "Users"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e137238785a8f000830772d",
+          "name": "gameCode",
+          "displayName": "GameCode",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "attempts",
+            "refFieldDisplayName": "Attempts",
+            "relationTableName": "AttemptsGameCode",
+            "relationFieldName": "attemptAId",
+            "refTable": {
+              "id": "5e0e413dd79d0c0008991d92",
+              "name": "GameCodes"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e0927c32dbe750007b26bf8",
+          "name": "points",
+          "displayName": "points",
+          "description": null,
+          "fieldType": "NUMBER",
+          "fieldTypeAttributes": {
+            "format": "NUMBER",
+            "precision": 0,
+            "currency": null,
+            "minValue": 0,
+            "maxValue": 10,
+            "isBigInt": null
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": "10",
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e273484defb8d00071bd208",
+          "name": "type",
+          "displayName": "type",
+          "description": null,
+          "fieldType": "SWITCH",
+          "fieldTypeAttributes": {
+            "format": "CUSTOM",
+            "listOptions": [
+              "fib_points",
+              "trivia_points"
+            ]
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        }
+      ]
+    },
+    {
+      "id": "5e0e40de0481d40008980af1",
+      "name": "Event",
+      "displayName": "Event",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e0e40de0481d40008980af3",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0e40de0481d40008980af4",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0e40de0481d40008980af7",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0e40de0481d40008980afd",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0e81288e7c08000870ba72",
+          "name": "banner",
+          "displayName": "banner",
+          "description": null,
+          "fieldType": "FILE",
+          "fieldTypeAttributes": {
+            "format": "IMAGE",
+            "maxSize": null,
+            "typeRestrictions": null
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e0e40eb0481d4000898121f",
+          "name": "name",
+          "displayName": "name",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e0e888deef67e000872dc93",
+          "name": "description",
+          "displayName": "description",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 500
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e0e4139d79d0c0008991acb",
+          "name": "categories",
+          "displayName": "Categories",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "events",
+            "refFieldDisplayName": "Events",
+            "relationTableName": "CategoriesEvents",
+            "relationFieldName": "eventAId",
+            "refTable": {
+              "id": "5e092260ae70420008028da1",
+              "name": "Categories"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e0e41710481d40008982ad1",
+          "name": "gameCodes",
+          "displayName": "GameCodes",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "event",
+            "refFieldDisplayName": "Event",
+            "relationTableName": "EventGameCodes",
+            "relationFieldName": "eventBId",
+            "refTable": {
+              "id": "5e0e413dd79d0c0008991d92",
+              "name": "GameCodes"
+            },
+            "refFieldIsList": false,
+            "refFieldIsRequired": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "5e0e413dd79d0c0008991d92",
+      "name": "GameCodes",
+      "displayName": "GameCodes",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e0e413dd79d0c0008991d94",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0e413dd79d0c0008991d95",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0e413dd79d0c0008991d98",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0e413dd79d0c0008991d9e",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e0e415f0481d400089820fc",
+          "name": "code",
+          "displayName": "code",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 32
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e0e41710481d40008982ace",
+          "name": "event",
+          "displayName": "Event",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "gameCodes",
+            "refFieldDisplayName": "GameCodes",
+            "relationTableName": "EventGameCodes",
+            "relationFieldName": "gameCodeAId",
+            "refTable": {
+              "id": "5e0e40de0481d40008980af1",
+              "name": "Event"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e0e41800481d40008982dab",
+          "name": "player",
+          "displayName": "Player",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "gameCodes",
+            "refFieldDisplayName": "GameCodes",
+            "relationTableName": "GameCodesUser",
+            "relationFieldName": "gameCodeAId",
+            "refTable": {
+              "id": "5e0920a66149240008e363d5",
+              "name": "Users"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e137238785a8f0008307730",
+          "name": "attempts",
+          "displayName": "Attempts",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "gameCode",
+            "refFieldDisplayName": "GameCode",
+            "relationTableName": "AttemptsGameCode",
+            "relationFieldName": "gameCodeBId",
+            "refTable": {
+              "id": "5e0927372dbe750007b24a2b",
+              "name": "Attempts"
+            },
+            "refFieldIsList": false,
+            "refFieldIsRequired": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "5e2f704fe7401900088160ef",
+      "name": "DoronsTable",
+      "displayName": "DoronsTable",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e2f704fe7401900088160f1",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e2f704fe7401900088160f2",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e2f704fe7401900088160f5",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e2f704fe7401900088160fb",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": {
+            "refFieldName": null,
+            "refFieldDisplayName": null,
+            "relationTableName": null,
+            "relationFieldName": "createdById",
+            "refTable": {
+              "id": "5e0920a66149240008e363d5",
+              "name": "Users"
+            },
+            "refFieldIsList": null,
+            "refFieldIsRequired": null
+          }
+        },
+        {
+          "id": "5e2f705ee740190008816933",
+          "name": "fieldz",
+          "displayName": "fieldz",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        }
+      ]
+    }
+  ],
+  "version": "0.0.92"
+}

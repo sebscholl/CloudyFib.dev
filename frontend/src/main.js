@@ -3,6 +3,9 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+
+/* Plugins */
+import "./plugins/donut";
 import vuetify from "./plugins/vuetify";
 import apolloProvider from "./plugins/apollo";
 

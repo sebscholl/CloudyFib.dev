@@ -49,6 +49,53 @@ export const PlayerGameScores = gql`
   }
 `;
 /**
+ * Get the users play stats.
+ */
+export const PlayerGameStats = gql`
+  query($eventId: ID!) {
+    answers: answersList(
+      filter: {
+        truth: { equals: false }
+        author: { is_self: true }
+        question: {
+          categories: {
+            some: { events: { some: { id: { equals: $eventId } } } }
+          }
+        }
+      }
+    ) {
+      count
+    }
+
+    attempts: attemptsList(
+      filter: {
+        createdBy: { is_self: true }
+        gameCode: { event: { id: { equals: $eventId } } }
+      }
+    ) {
+      count
+    }
+
+    points: attemptsList(
+      groupBy: {
+        query: {
+          type: { as: "label" }
+          points: { as: "value", fn: { aggregate: SUM } }
+        }
+      }
+      filter: {
+        player: { is_self: true }
+        gameCode: { event: { id: { equals: $eventId } } }
+      }
+    ) {
+      groups {
+        label: String
+        value: Int
+      }
+    }
+  }
+`;
+/**
  * List of users GameCodes with event info
  */
 export const PlayerGameCodes = gql`
@@ -179,7 +226,9 @@ export const PlayableQuestionForPlayer = gql`
     }
   }
 `;
-
+/**
+ * Submit a new attempt at answering a question
+ */
 export const SubmitAttempt = gql`
   mutation($answerId: ID!, $questionId: ID!, $gameCode: String!) {
     submitAttempt(
