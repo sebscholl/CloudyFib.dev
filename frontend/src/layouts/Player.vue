@@ -22,10 +22,6 @@
         </v-row>
       </v-container>
     </v-content>
-
-    <v-footer :inset="footer.inset" app>
-      <span class="px-4">&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 
