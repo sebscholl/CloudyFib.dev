@@ -2,7 +2,11 @@
 .play {
   .selected-border {
     border-radius: 5px;
-    border: 3px solid yellow;
+    border: 3px solid rgb(4, 169, 270);
+  }
+
+  code {
+    padding: 20px 15px;
   }
 
   .answer {
@@ -25,7 +29,7 @@
 
 <template>
   <v-col class="play">
-    <v-card class="mx-auto glass">
+    <v-card class="mx-auto pa-4">
       <!-- State for when question is loading -->
       <template v-if="componentState === 'loading'">
         <v-card-text class="d-flex justify-center">
@@ -44,31 +48,39 @@
         </v-img>
 
         <v-card-text class="text--primary">
-          <h3 v-text="question.text"></h3>
+          <h3 v-text="question.text" class="blue--text"></h3>
         </v-card-text>
 
         <v-card-text class="text--primary">
           <v-list-item-group>
             <v-list-item
-              v-for="answer in questionAnswers"
               :key="answer.id"
               @click="select(answer)"
-              :class="{
-                'selected-border': selected && selected.id === answer.id
-              }"
+              v-for="answer in questionAnswers"
             >
               <v-list-item-content>
-                <code>{{ answer.text }}</code>
+                <code
+                  :class="{
+                    'selected-border': selected && selected.id === answer.id
+                  }"
+                >
+                  {{ answer.text }}
+                </code>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
         </v-card-text>
 
-        <v-card-actions>
-          <v-btn @click="saveAttempt" color="orange">
+        <div class="right">
+          <v-btn
+            @click="saveAttempt"
+            color="orange"
+            class="mt-6"
+            style="width: 100%; color: white;"
+          >
             Submit Answer
           </v-btn>
-        </v-card-actions>
+        </div>
       </template>
 
       <!-- State for when question is saving -->
@@ -79,11 +91,13 @@
             { truth: answerReport.truth, fib: !answerReport.truth }
           ]"
         >
-          <h3>{{ answerReport.title }}</h3>
-          <h1 class="my-4">
+          <h3 class="blue--text">{{ answerReport.title }}</h3>
+
+          <h1 class="my-4 blue--text">
             {{ (answerReport.truth ? "+" : "-") + answerReport.points }}
           </h1>
-          <h5>{{ answerReport.subtitle }}</h5>
+
+          <h5 class="blue--text">{{ answerReport.subtitle }}</h5>
         </v-card-text>
       </template>
 
@@ -92,6 +106,17 @@
         <v-card-text class="d-flex justify-center">
           <v-progress-circular :size="75" color="amber" indeterminate />
         </v-card-text>
+      </template>
+
+      <!-- State for when question is saving -->
+      <template v-if="componentState === 'empty'">
+        <h3 class="blue--text mb-5">
+          Hot damn, looks like you've answered all the questions!
+        </h3>
+
+        <router-link :to="{ name: 'fib' }"
+          >Submit more fibs to keep earning points!</router-link
+        >
       </template>
     </v-card>
 
@@ -196,7 +221,8 @@ export default {
         mutation: SubmitAttempt,
         variables
       });
-
+      /* Update token balance */
+      this.$store.commit("useToken");
       /* Show whether answer is correct or incorrect */
       truth ? this.answerCorrect(points) : this.answerIncorrect(points);
     },

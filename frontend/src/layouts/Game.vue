@@ -1,13 +1,23 @@
+<style lang="scss" scoped>
+.game-name {
+  color: rgb(2, 70, 178);
+}
+</style>
+
 <template>
   <v-app id="sandbox">
     <LeftNavigation :primaryDrawer="primaryDrawer" />
 
-    <v-app-bar :clipped-left="primaryDrawer.clipped" class="glass" app>
+    <v-app-bar :clipped-left="primaryDrawer.clipped" app>
       <v-app-bar-nav-icon
         v-if="primaryDrawer.type !== 'permanent'"
         @click.stop="primaryDrawer.model = !primaryDrawer.model"
       />
 
+      <v-spacer></v-spacer>
+      <span class="game-name"
+        >CloudyFib @ {{ currentGameDetails.event.name }}</span
+      >
       <v-spacer></v-spacer>
 
       <v-badge
@@ -23,17 +33,7 @@
       </v-badge>
     </v-app-bar>
 
-    <v-content class="bohek-background">
-      <!-- Particles for background start -->
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <!-- Particles for background end -->
-
+    <v-content class="app-background">
       <v-container fluid>
         <v-row align="center" justify="center">
           <router-view></router-view>
@@ -69,7 +69,7 @@ export default {
     }
   }),
   computed: {
-    ...mapGetters(["playerTokens"])
+    ...mapGetters(["playerTokens", "currentGameDetails"])
   },
   methods: {
     ...mapActions(["fetchPlayerTokens"])

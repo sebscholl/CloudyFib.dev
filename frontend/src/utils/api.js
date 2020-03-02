@@ -75,5 +75,6 @@ export default new ApolloClient({
   link: errorLink.concat(authLink.concat(httpLink)),
   /* Initialize the cache for helping performance */
   cache: new InMemoryCache(),
-  connectToDevTools: true
+  connectToDevTools: true,
+  fetchPolicy: "no-cache"
 });

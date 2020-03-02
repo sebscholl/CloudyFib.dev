@@ -1,7 +1,7 @@
 <template>
   <v-col class="fibbing">
     <!-- State for when a question is loaded and ready to be fibbed -->
-    <v-card class="mx-auto glass">
+    <v-card class="mx-auto pa-4">
       <template v-if="componentState === 'loaded'">
         <v-img
           v-if="question.picture"
@@ -10,27 +10,26 @@
           :src="question.picture.downloadUrl"
         />
 
-        <v-card-text class="text--primary">
-          <h3 v-text="question.text"></h3>
-        </v-card-text>
+        <h3 v-text="question.text" class="blue--text my-5"></h3>
 
-        <v-card-text class="text--primary">
-          <p class="red--text" v-if="error">{{ error }}</p>
+        <p class="red--text" v-if="error">{{ error }}</p>
 
-          <v-textarea
-            outlined
-            label="Fib"
-            v-model="fib"
-            name="input-7-4"
-            placeholder="Go on, lie your little heart out."
-          ></v-textarea>
-        </v-card-text>
+        <v-textarea
+          outlined
+          label="Fib"
+          v-model="fib"
+          name="input-7-4"
+          placeholder="Go on, lie your little heart out."
+        ></v-textarea>
 
-        <v-card-actions>
-          <v-btn @click="saveFib" color="orange">
-            Submit Fib
-          </v-btn>
-        </v-card-actions>
+        <v-btn
+          @click="saveFib"
+          color="orange"
+          class="mt-6"
+          style="width: 100%; color: white;"
+        >
+          Submit Fib
+        </v-btn>
       </template>
 
       <!-- State for when question is loading -->
@@ -49,7 +48,7 @@
 
       <!-- State for when there are no more questions to answer -->
       <template v-if="componentState === 'empty'">
-        <h3 class="grey--text">
+        <h3 class="blue--text mb-5">
           There are no more questions for you to Fib on!
         </h3>
 

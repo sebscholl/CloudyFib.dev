@@ -1,12 +1,14 @@
 import graphqlClient from "@/utils/api";
 import {
+  GameCodeQuery,
   PlayerGameCodes,
   CURRENT_USER_QUERY,
   PlayerGameStats,
   CurrentGameDetails,
   CurrentGameLeaderboard,
   FibbableQuestionForPlayer,
-  PlayableQuestionForPlayer
+  PlayableQuestionForPlayer,
+  RegisterGameCodeMutation
 } from "@/utils/graphql";
 /**
  * Game state maintains the current game being
@@ -55,6 +57,12 @@ const mutations = {
    */
   setPlayerTokens(state, number) {
     state.playerTokens = number;
+  },
+  /**
+   * Subtracts 1 from tokens balance.
+   */
+  useToken(state) {
+    state.playerTokens = state.playerTokens - 1;
   },
   /**
    * Switch games.
@@ -188,6 +196,37 @@ const actions = {
       attempts,
       groups
     };
+  },
+  /**
+   * Registers the players in a game.
+   */
+  async registerGameCode({ commit }, code) {
+    const {
+      data: { gameCode, user }
+    } = await graphqlClient.query({
+      query: GameCodeQuery,
+      variables: { code },
+      fetchPolicy: "no-cache"
+    });
+
+    /* Ensure the code exists and is not claimed */
+    if (gameCode === null || gameCode.claimed === true) {
+      return false;
+    } else {
+      const {
+        data: {
+          userUpdate: { gameCodes }
+        }
+      } = await graphqlClient.mutate({
+        mutation: RegisterGameCodeMutation,
+        variables: {
+          playerId: user.id,
+          codeId: gameCode.id
+        }
+      });
+
+      commit("setGames", gameCodes);
+    }
   }
 };
 

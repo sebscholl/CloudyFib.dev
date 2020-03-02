@@ -1,8 +1,25 @@
+<style lang="scss">
+.leaderboard {
+  .v-data-table.leader-list {
+    thead {
+      color: rgb(2, 70, 178);
+    }
+    background-color: #07a9f4;
+  }
+  .theme--light.v-data-table
+    tbody
+    tr:hover:not(.v-data-table__expanded__content) {
+    opacity: 0.8;
+    background-color: #07a9f4;
+  }
+}
+</style>
+
 <template>
   <v-col class="leaderboard">
     <PlayerChart></PlayerChart>
 
-    <v-simple-table class="glass">
+    <v-simple-table class="leader-list">
       <template v-slot:default>
         <thead>
           <tr>
@@ -14,7 +31,11 @@
         <tbody>
           <tr v-if="loading">
             <td colspan="3" class="pa-3 center">
-              <v-progress-circular :size="75" color="amber" indeterminate />
+              <v-progress-circular
+                :size="75"
+                color="rgb(209,103,37)"
+                indeterminate
+              />
             </td>
           </tr>
 

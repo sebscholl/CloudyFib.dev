@@ -22,11 +22,12 @@ import gql from "graphql-tag";
 
 const USER_ANSWER_TRUE_QUERY = gql`
   query($answerId: ID!) {
-    user: user {
+    user {
       id
+      tokens
     }
 
-    answer: answer(id: $answerId) {
+    answer(id: $answerId) {
       truth
       author {
         id
@@ -35,14 +36,21 @@ const USER_ANSWER_TRUE_QUERY = gql`
   }
 `;
 
-const ATTEMPT_CREATE_MUTATION = gql`
+const ATTEMPT_CREATE_TOKENS_UPDATE_MUTATION = gql`
   mutation(
     $questionId: ID
     $answerId: ID!
     $playerId: ID!
     $gameCode: String!
     $type: String!
+    $tokens: Int!
   ) {
+
+    userUpdate(data: {
+      id: $playerId,
+      tokens: $tokens
+    }) { id }
+
     attemptCreate(
       data: {
         type: $type
@@ -51,10 +59,7 @@ const ATTEMPT_CREATE_MUTATION = gql`
         player: { connect: { id: $playerId } }
         gameCode: { connect: { code: $gameCode } }
       }
-    ) {
-      id
-      points
-    }
+    ) { id points }
   }
 `;
 
@@ -73,14 +78,15 @@ export default async (event: any, ctx: any): Promise<any> => {
   };
 
   if (truth) {
-    Object.assign(data, { type: "trivia_points", playerId: user.id });
+    Object.assign(data, { type: "trivia_points", playerId: user.id, tokens: user.tokens - 1 });
   } else {
-    Object.assign(data, { type: "fib_points", playerId: author.id });
+    Object.assign(data, { type: "fib_points", playerId: author.id, tokens: user.tokens - 1 });
   }
 
+  /* Create the attempt and update tokens balance on player */
   const {
     attemptCreate: { id, points }
-  } = await ctx.api.gqlRequest(ATTEMPT_CREATE_MUTATION, data, {
+  } = await ctx.api.gqlRequest(ATTEMPT_CREATE_TOKENS_UPDATE_MUTATION, data, {
     checkPermissions: false
   });
 

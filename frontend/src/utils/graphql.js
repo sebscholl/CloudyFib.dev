@@ -100,7 +100,7 @@ export const PlayerGameStats = gql`
  */
 export const PlayerGameCodes = gql`
   query {
-    gameCodesList {
+    gameCodesList(filter: { player: { is_self: true } }) {
       items {
         event {
           name
@@ -238,6 +238,56 @@ export const SubmitAttempt = gql`
     ) {
       truth
       points
+    }
+  }
+`;
+/**
+ * Check if gamecode exists
+ */
+export const GameCodeQuery = gql`
+  query($code: String!) {
+    user: user {
+      id
+    }
+
+    gameCode(code: $code) {
+      event {
+        name
+        description
+        banner {
+          downloadUrl
+        }
+      }
+      id
+      code
+      claimed
+    }
+  }
+`;
+/**
+ * Register the gameCode
+ */
+export const RegisterGameCodeMutation = gql`
+  mutation($codeId: ID!, $playerId: ID!) {
+    userUpdate(
+      data: { id: $playerId, gameCodes: { connect: [{ id: $codeId }] } }
+    ) {
+      gameCodes {
+        items {
+          event {
+            name
+            description
+            banner {
+              downloadUrl
+            }
+          }
+          player {
+            id
+          }
+          id
+          code
+        }
+      }
     }
   }
 `;

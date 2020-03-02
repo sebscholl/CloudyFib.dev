@@ -1,6 +1,21 @@
+<style lang="scss">
+.v-navigation-drawer {
+  .v-list-item {
+    &__title {
+      color: rgb(2, 70, 178);
+    }
+    &__content {
+      color: rgb(2, 70, 178);
+    }
+    &__icon {
+      color: rgb(2, 70, 178);
+    }
+  }
+}
+</style>
+
 <template>
   <v-navigation-drawer
-    class="glass"
     v-model="primaryDrawer.model"
     :clipped="primaryDrawer.clipped"
     :floating="primaryDrawer.floating"

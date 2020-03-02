@@ -9,6 +9,9 @@ import "./plugins/donut";
 import vuetify from "./plugins/vuetify";
 import apolloProvider from "./plugins/apollo";
 
+/* Components */
+Vue.component("cloudy-btn", require("./components/CloudyButton.vue").default);
+
 Vue.config.productionTip = false;
 
 new Vue({

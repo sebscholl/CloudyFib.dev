@@ -1,20 +1,21 @@
+<style lang="scss">
+#player-layout {
+  .v-toolbar__content {
+    justify-content: center;
+  }
+  .v-toolbar__title {
+    color: rgb(2, 70, 178);
+  }
+}
+</style>
+
 <template>
-  <v-app id="sandbox">
-    <v-app-bar :clipped-left="primaryDrawer.clipped" class="glass" app>
-      <v-toolbar-title>Cloudy Fib</v-toolbar-title>
+  <v-app id="player-layout">
+    <v-app-bar :clipped-left="primaryDrawer.clipped" app>
+      <v-toolbar-title>CloudyFib Games</v-toolbar-title>
     </v-app-bar>
 
-    <v-content class="bohek-background">
-      <!-- Particles for background start -->
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <!-- Particles for background end -->
-
+    <v-content class="app-background">
       <v-container fluid>
         <v-row align="center" justify="center">
           <router-view></router-view>
