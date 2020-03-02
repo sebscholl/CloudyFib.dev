@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.dca8145f3e33954e9e8b5e590fc8c221.js"
+  "/precache-manifest.e5de9035c4dd092f1d0f0d71baeeb77e.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "cloudy-fib"});
