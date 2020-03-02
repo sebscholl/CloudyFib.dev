@@ -26,7 +26,6 @@ body {
 
 .app-background {
   width: 100vw;
-  height: 100vh;
   background: rgb(2, 70, 178);
   background: linear-gradient(
     180deg,

@@ -33,7 +33,7 @@
 
 <template>
   <v-row class="w-100">
-    <v-col sm="12" md="6" class="col-wide">
+    <v-col sm="12" md="6" class="col-wide" style="margin: 0 auto;">
       <v-card class="login">
         <h1>CloudyFib</h1>
 

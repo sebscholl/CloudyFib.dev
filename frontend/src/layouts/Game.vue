@@ -1,4 +1,8 @@
 <style lang="scss" scoped>
+#sandbox {
+  overflow-y: scroll; 
+}
+
 .game-name {
   color: rgb(2, 70, 178);
 }
@@ -40,10 +44,6 @@
         </v-row>
       </v-container>
     </v-content>
-
-    <v-footer :inset="footer.inset" app>
-      <span class="px-4">&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 
